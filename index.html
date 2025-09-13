@@ -1,170 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy Birthday 🎉</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Pyari Bunu ❤️</title>
   <style>
-    :root{
-      --bg1:#ff7ab6; --bg2:#7b61ff; --bg3:#3ad7ff;
-      --glass: rgba(255,255,255,0.12);
-      --accent: #fff7ea;
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
     }
-    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
-    body{
-      background: radial-gradient(600px 400px at 10% 10%, rgba(255,255,255,0.06), transparent),
-                  linear-gradient(135deg,var(--bg1),var(--bg2) 50%,var(--bg3));
-      color:#fff; overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
+    h1 {
+      color: #fff;
+      font-size: 3em;
+      text-shadow: 2px 2px 5px #00000050;
+      animation: bounce 1s infinite alternate;
     }
-
-    .card{
-      width:min(720px,94%);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border-radius:22px; padding:28px; box-shadow: 0 12px 40px rgba(8,6,27,0.5);
-      backdrop-filter: blur(6px);
+    p {
+      color: #fff;
+      font-size: 1.5em;
+      max-width: 500px;
+      margin: 20px;
     }
-
-    .title{
-      font-size: clamp(28px, 4vw, 56px);
-      font-weight:800; letter-spacing:-0.02em;
-      line-height:0.95;
-      text-shadow: 0 6px 30px rgba(0,0,0,0.25), 0 0 30px rgba(255,255,255,0.06);
-      text-align:center;
+    .nickname {
+      color: #ffe600;
+      font-weight: bold;
+      font-size: 2em;
     }
-    .subtitle{ margin-top:8px; font-weight:300; opacity:0.95; text-align:center; }
-    .glow {
-      background: linear-gradient(90deg, #fff, #ffe6f0);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow: 0 6px 30px rgba(255,255,255,0.08);
-      animation: glow 2.8s ease-in-out infinite;
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
     }
-    @keyframes glow {
-      0%,100%{ transform: scale(1);}
-      50%{ transform: scale(1.02);}
+    /* Confetti animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ffe600;
+      top: -10px;
+      animation: fall 3s linear infinite;
+      border-radius: 50%;
     }
-
-    .messages { margin:18px auto; display:flex; flex-direction:column; gap:10px; max-width:520px; }
-    .msg {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      padding:12px 14px; border-radius:12px; font-weight:600;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
     }
-
-    .controls { margin-top:18px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-    .btn {
-      background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      border:1px solid rgba(255,255,255,0.08);
-      padding:10px 14px; border-radius:999px; cursor:pointer; color:#fff; font-weight:700;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    }
-    .btn.primary { background: linear-gradient(90deg,#ff7ab6,#7b61ff); border: none; }
-
-    .float {
-      position:absolute; inset:0; pointer-events:none; overflow:hidden;
-    }
-    .float .obj{ position:absolute; opacity:0.85; will-change:transform; }
-
-    .sparkles{ position:absolute; inset:0; pointer-events:none; background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.06) 0 1px, transparent 2px); opacity:0.55; mix-blend-mode:overlay; }
-
-    .modal {
-      position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) scale(0.95);
-      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      padding:26px; border-radius:16px; z-index:60; display:none; width:min(720px,94%); text-align:center; box-shadow: 0 30px 80px rgba(2,2,12,0.6);
-    }
-    .modal.show{ display:block; animation:pop 0.28s ease-out; transform:translate(-50%,-50%) scale(1); }
-    @keyframes pop{ from{ transform:translate(-50%,-50%) scale(0.9); opacity:0 } to{ transform:translate(-50%,-50%) scale(1); opacity:1 } }
-
-    .close { position:absolute; right:12px; top:8px; background:transparent; border:0; color:#fff; font-weight:800; font-size:18px; cursor:pointer; }
-
-    footer.credit { position:fixed; bottom:12px; left:12px; color:rgba(255,255,255,0.7); font-weight:600; z-index:40; font-size:13px; }
   </style>
 </head>
 <body>
+  <h1>Hey Pyari Bunu! 👑</h1>
+  <p>
+    I know I messed up with the nicknames… but I’m on a mission to make you smile every day 😁. 
+    Here’s your special nickname: <span class="nickname">Pyari Bunu</span>! 
+    Use it wisely 😏
+  </p>
+  <p>P.S. Prepare for a lot of silly jokes and love 💖</p>
 
-  <div class="card">
-    <div class="title glow" id="heroText">Happy Birthday, Bestie! 🎂</div>
-    <div class="subtitle">Wishing you a day filled with love, laughter, and sparkle ✨</div>
-
-    <div class="messages">
-      <div class="msg">You're one in a million — keep shining 🌟</div>
-      <div class="msg">Best memories and so many more to come 🥂</div>
-      <div class="msg">From your second-best (but first in heart) friend 💖</div>
-    </div>
-
-    <div class="controls">
-      <button class="btn primary" id="surpriseBtn">🎁 Open Surprise</button>
-      <button class="btn" id="confettiBtn">🎊 Confetti</button>
-      <button class="btn" id="fireworksBtn">✨ Fireworks</button>
-      <button class="btn" id="playBtn">▶ Play Music</button>
-      <button class="btn" id="pauseBtn">⏸ Pause</button>
-    </div>
-  </div>
-
-  <div class="float" id="floatLayer"></div>
-  <div class="sparkles"></div>
-
-  <div class="modal" id="modal">
-    <button class="close" id="closeModal">✕</button>
-    <h2>A special message for you 🎀</h2>
-    <p>You mean the world to me — thank you for being you. Let's make today unforgettable! 💫</p>
-  </div>
-
-  <footer class="credit">Made with ♥ by your friend</footer>
-
-  <audio id="bgAudio" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_7b5efb14f6.mp3?filename=happy-birthday-137080.mp3" type="audio/mpeg">
-  </audio>
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    const audio = document.getElementById('bgAudio');
-    document.getElementById('playBtn').onclick = ()=> audio.play();
-    document.getElementById('pauseBtn').onclick = ()=> audio.pause();
-
-    document.getElementById('confettiBtn').onclick = ()=> {
-      confetti({ particleCount: 300, spread: 140, origin: { y: 0.4 } });
-    };
-    document.getElementById('fireworksBtn').onclick = ()=> {
-      const end = Date.now() + 1500;
-      (function frame() {
-        confetti({ particleCount: 40, angle: 60, spread: 55, origin: { x: 0 } });
-        confetti({ particleCount: 40, angle: 120, spread: 55, origin: { x: 1 } });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-    };
-
-    const modal = document.getElementById('modal');
-    document.getElementById('surpriseBtn').onclick = ()=> {
-      modal.classList.add('show');
-      confetti({ particleCount: 500, spread: 160 });
-    };
-    document.getElementById('closeModal').onclick = ()=> modal.classList.remove('show');
-
-    const floatLayer = document.getElementById('floatLayer');
-    const shapes = ['🎈','💖','✨','🎉','🎂'];
-    setInterval(()=>{
-      const el = document.createElement('div');
-      el.className='obj';
-      const size = Math.random()*36+24;
-      el.style.fontSize=size+'px';
-      el.style.left=(Math.random()*100)+'%';
-      el.style.top='100%';
-      el.textContent=shapes[Math.floor(Math.random()*shapes.length)];
-      floatLayer.appendChild(el);
-      const duration=8000+Math.random()*7000;
-      el.animate([
-        { transform:'translateY(0)', opacity:0 },
-        { transform:`translateY(-760px) rotate(${Math.random()*720-360}deg)`, opacity:1 }
-      ], {duration});
-      setTimeout(()=> el.remove(), duration);
-    }, 900);
-  </script>
+  <!-- Simple confetti effect -->
+  <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="confetti" style="left: 30%; animation-delay: 0.5s;"></div>
+  <div class="confetti" style="left: 50%; animation-delay: 1s;"></div>
+  <div class="confetti" style="left: 70%; animation-delay: 1.5s;"></div>
+  <div class="confetti" style="left: 90%; animation-delay: 2s;"></div>
 </body>
 </html>
+
+
 
 
 
